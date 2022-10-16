@@ -45,9 +45,17 @@ v16.15.1
 
 ## 使い方
 
+### テンプレートからリポジトリを作成
+
+下記画像を参考にこのテンプレートからリポジトリを作成する。
+
+![new-repo](https://user-images.githubusercontent.com/696573/196020561-c4d399fa-3707-40a5-b6b0-673be2b07915.png)
+
+プライベートリポジトリにしておかないと意味がないので注意してください。
+
 ### サイト公開フロー
 
-1. `gh-pages`ブランチを作りGitHub Pagesでブランチを指定して公開する
+1. `gh-pages`ブランチに切り替える<br>（デモ用のディレクトリが残っている場合は削除する）
 2. `$node create-dir.mjs [パスワード]` でハッシュ値のディレクトリ名を生成する
 3. 必要なファイルを新規作成したディレクトリに格納<br>（この時、HTMLドキュメントのmetaタグに`<meta name="robots" content="noindex, nofollow, noarchive">`が入っていると良い）
 4. `$node create-index.mjs [パスワード]` でディレクトリ内のファイルリストをindex.htmlとして生成
