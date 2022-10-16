@@ -1,5 +1,5 @@
 import { readdirSync, writeFileSync } from 'fs'
-import { getText2Hash } from './text2hash.mjs'
+import getText2Hash from './text2hash.mjs'
 
 const myArgs = process.argv.slice(2);
 console.log('myArgs: ', myArgs);
