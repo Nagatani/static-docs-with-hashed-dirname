@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Password authenticator</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      :root {
+        font-size: 16px;
+      }
+      html, body {
+        height: 100vh;
+      }
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      form {
+        box-sizing: border-box;
+        width: 480px;
+        padding: 1rem;
+        box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+      }
+      input[type=password] {
+        display: block;
+        font-size: 1.5rem;
+        padding: 0.5rem 1rem;
+        width: 100%;
+        border: none;
+        background-color: #f3f3f3;
+      }
+      button[type=submit] {
+        cursor: pointer;
+        display: block;
+        padding: 0.75em 3em;
+        border-radius: 9rem;
+        width: 100%;
+        border: none;
+        text-decoration: none;
+        text-align: center;
+        word-break: break-all;
+
+        color: #fff;
+        background: linear-gradient(30deg, #8c50aa, #2975a6, #cc2c1a, #ff6437);
+        background-size: 600% 600%;
+        animation: background-gradient 15s ease infinite;
+      }
+      @keyframes background-gradient {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+      p {
+        font-size: 0.5em;
+      }
+      p.message {
+        color: #ed4337;
+        margin: 0;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <form id="form">
+      <input type="password" placeholder="password" id="password">
+      <p>Result: <a id="result"></a></p>
+      <button type="submit">authenticate</button>
+      <p class="message"></p>
+    </form>
+    <script type="module">
+      import getText2Hash from './text2hash.mjs'
+      
+      document.querySelector('#form').addEventListener('submit', (event) => {
+        event.preventDefault()
+        event.stopPropagation()
+        event.stopImmediatePropagation()
+
+        const password = document.querySelector('#password').value
+        
+        const url = getText2Hash(password)
+        const result = document.querySelector('#result')
+        result.innerHTML = url
+        result.href = url
+
+        fetch(url, {method: 'GET'}).then(response => {
+          if (!response.ok) {
+            console.error('response', response)
+            throw new Error(response.statusText)
+          }
+
+          // correct password
+          window.location.href = url;
+
+        })
+        .catch(error => {
+          console.error('fetch error', error)
+          document.querySelector('.message').innerHTML = 'Error!! The password is incorrect.'
+        })
+      })
+
+    </script>
+  </body>
+</html>
