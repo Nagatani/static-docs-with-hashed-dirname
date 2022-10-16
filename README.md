@@ -24,7 +24,9 @@
 
 ## デモ
 
-準備中
+パスワード: demo
+
+<a href="https://nagatani.github.io/static-docs-with-hashed-dirname/" target="_blank">https://nagatani.github.io/static-docs-with-hashed-dirname/</a>
 
 ## 必要環境
 
